@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-parcelize")
+
 }
 
 android {
@@ -66,5 +68,12 @@ dependencies {
     implementation ("com.squareup.moshi:moshi-kotlin:$moshiVersion")
     implementation ("com.squareup.moshi:moshi-adapters:$moshiVersion")
     implementation ("com.squareup.retrofit2:converter-gson:$retrofitVersion")
+
+    //Glide-picture process
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
+    implementation ("com.android.support:support-v4:19.1.0")
+
+    implementation ("com.google.code.gson:gson:2.8.5")
+
 
 }

@@ -1,15 +1,19 @@
-package com.example.randomjokegeneratormodified.di
+package com.example.template.di
 
-import org.koin.androidx.viewmodel.dsl.viewModel
+
+import LocalDataSource
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
+import com.example.template.features.MainViewModel
+import com.example.template.repositories.NewsRepository
 
 
 val appModule = module {
 
     //Here put the Repositories
 
-    single { MainRepository(get()) }
+    single { NewsRepository(get()) }
+    single { LocalDataSource(get()) }
 
     //Here put the ViewModels
     viewModelOf(::MainViewModel)
