@@ -10,9 +10,4 @@ class NewsRepository(private val localDataSource: LocalDataSource) {
     suspend fun getNewsArticles(): List<NewsArticle> {
         return localDataSource.getNewsArticles()
     }
-
-    // Function to filter news articles by title and rating
-    suspend fun filterNewsArticlesByTitleAndRating(title: String, rating: Int): List<NewsArticle> {
-        return localDataSource.filterNewsArticlesByTitleAndRating(title, rating)
-    }
 }

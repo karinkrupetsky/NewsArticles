@@ -6,6 +6,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.template.databinding.ActivityMainBinding
 import com.example.template.features.news.NewsAdapter
+import com.example.template.filter.Filter
+import com.example.template.filter.RatingFilter
+import com.example.template.filter.TitleFilter
 import com.example.template.model.NewsArticle
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -44,7 +47,14 @@ class MainActivity : AppCompatActivity() {
                 val titleFilter = titleFilterEditText.text.toString()
                 val ratingFilter = ratingFilterSeekBar.progress
 
-                viewModel.filterNewsArticles(titleFilter, ratingFilter)
+                val filters = mutableListOf<Filter<NewsArticle>>()
+                if (titleFilter.isNotEmpty()) {
+                    filters.add(TitleFilter(titleFilter))
+                }
+
+                filters.add(RatingFilter(ratingFilter))
+                viewModel.filterNewsArticles(filters)
+
             }
         }
     }

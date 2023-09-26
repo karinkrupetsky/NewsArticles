@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
+    id("kotlin-kapt")
 
 }
 
@@ -70,8 +71,10 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:$retrofitVersion")
 
     //Glide-picture process
+    val glide_version = "4.13.0"
     implementation ("com.github.bumptech.glide:glide:4.12.0")
-    implementation ("com.android.support:support-v4:19.1.0")
+    kapt ("com.github.bumptech.glide:compiler:$glide_version")
+//    implementation ("com.android.support:support-v4:19.1.0")
 
     implementation ("com.google.code.gson:gson:2.8.5")
 

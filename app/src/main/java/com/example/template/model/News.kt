@@ -4,6 +4,10 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
+data class Articles(
+    val articles: List<NewsArticle>
+): Parcelable
+@Parcelize
 data class NewsArticle(
     val title: String,
     val description: String,
