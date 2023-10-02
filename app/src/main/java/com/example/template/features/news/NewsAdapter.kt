@@ -39,7 +39,7 @@ class NewsAdapter() :
                     .load(news.image_url)
                     .thumbnail( 0.5f )
                     .override( 100, 100 )
-                    .placeholder(createColorDrawable(news.placeholderColor, holder.itemView.context))
+                    .placeholder(news.placeholderColor?.let { createColorDrawable(it, holder.itemView.context) })
                     .diskCacheStrategy( DiskCacheStrategy.ALL )
                     .into(newsImage)
 

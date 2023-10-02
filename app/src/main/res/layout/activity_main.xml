@@ -16,11 +16,21 @@
         android:inputType="text"
         android:layout_marginBottom="8dp"/>
 
+
+    <EditText
+        android:id="@+id/descriptionEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Search by Description"
+        android:inputType="text"
+        android:layout_marginBottom="8dp"/>
+
     <SeekBar
         android:id="@+id/ratingFilterSeekBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:max="5"
+        android:min="0"
         android:progress="0"
         android:layout_marginBottom="16dp" />
 

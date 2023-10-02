@@ -13,7 +13,7 @@ data class NewsArticle(
     val description: String,
     val image_url: String,
     val rating: Int,
-    val placeholderColor: PlaceHolderColor
+    val placeholderColor: PlaceHolderColor?
 ): Parcelable
 @Parcelize
 data class PlaceHolderColor(
