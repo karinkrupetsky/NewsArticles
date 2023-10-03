@@ -8,17 +8,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.template.databinding.ActivityMainBinding
 import com.example.template.features.news.NewsAdapter
 import com.example.template.filter.Filter
-import com.example.template.filter.IntFilter
-import com.example.template.filter.StringFilter
+
+
 import com.example.template.model.NewsArticle
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
+
+
+import com.example.template.filter.applyIntFilter
+import com.example.template.filter.applyStringFilter
+
+
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val viewModel by viewModel<MainViewModel>()
     private var newsAdapter: NewsAdapter? = null
-    var logInfo: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,24 +57,22 @@ class MainActivity : AppCompatActivity() {
                 val description = descriptionEditText.text.toString()
 
                 val filters = mutableListOf<Filter<NewsArticle>>()
+                var logInfo = ""
 
 //                if (titleFilter.isNotEmpty()) {
 //                    logInfo = "filtering by title : ${titleFilter}"
-//                    filters.add(StringFilter({it.title}, titleFilter))
+//                    filters.add(TitleFilter(titleFilter))
 //                }
-//
-//                if (description.isNotEmpty()) {
-//                    logInfo += " filtering by descriptionn : ${description}"
-//                    filters.add(StringFilter({it.description}, description))
-//                }
+//                if(ratingFilter>0){
+//                    filters.add(RatingFilter(ratingFilter))}
 
-                logInfo = ""
-                applyStringFilter(filters, {it.title}, titleFilter, "title")
-                applyStringFilter(filters, {it.description}, description, "description")
+
+                logInfo += applyStringFilter(filters, {it.title}, titleFilter, "title")
+                logInfo += applyStringFilter(filters, {it.description}, description, "description")
 
 
                 if(ratingFilter > 0) {
-                    applyIntFilter(filters, {it.rating}, ratingFilter, "rating")
+                    logInfo += applyIntFilter(filters, {it.rating}, ratingFilter, "rating")
                 }
 
                 if(logInfo.isNotEmpty()) {
@@ -83,17 +87,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun applyStringFilter(filters: MutableList<Filter<NewsArticle>>, articleParam: (NewsArticle) -> String?, value: String, filterBy: String) {
-        if(value.isNotEmpty()) {
-            logInfo += " filtering by : ${filterBy} : ${value}"
-            filters.add(StringFilter(articleParam, value))
-        }
-    }
 
-    fun applyIntFilter(filters: MutableList<Filter<NewsArticle>>, articleParam: (NewsArticle) -> Int?, value: Int, filterBy: String)  {
-        logInfo += " filtering by : ${filterBy} : ${value}"
-        filters.add(IntFilter(articleParam, value))
-    }
 
 }
-

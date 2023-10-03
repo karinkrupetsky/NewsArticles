@@ -2,11 +2,13 @@ package com.example.template.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import java.io.Serializable
 
 @Parcelize
 data class Articles(
     val articles: List<NewsArticle>
-): Parcelable
+): Serializable, Parcelable
+
 @Parcelize
 data class NewsArticle(
     val title: String,

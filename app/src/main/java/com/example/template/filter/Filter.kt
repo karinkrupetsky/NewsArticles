@@ -16,23 +16,36 @@ interface Filter<T> {
 //
 //class RatingFilter(private val minRating: Int) : Filter<NewsArticle> {
 //    override fun applyFilter(item: NewsArticle): Boolean {
-//        return item.rating >= minRating
+//        return item.rating == minRating
 //    }
 //}
 
-class StringFilter(private val articleParam: (NewsArticle) -> String?,
-                   private val stringValue: String) : Filter<NewsArticle> {
-    override fun applyFilter(item: NewsArticle): Boolean {
+
+class StringFilter<T>(private val articleParam: (T) -> String?,
+                      private val stringValue: String) : Filter<T> {
+    override fun applyFilter(item: T): Boolean {
         val filterValue = articleParam(item)
         return  filterValue != null && filterValue.contains(stringValue, ignoreCase = true)
     }
 }
 
-class IntFilter(private val articleParam: (NewsArticle) -> Int?,
-                private val intValue: Int) : Filter<NewsArticle> {
-    override fun applyFilter(item: NewsArticle): Boolean {
+fun <T>applyStringFilter(filters: MutableList<Filter<T>>, articleParam: (T) -> String?, value: String, filterBy: String = ""): String {
+    if(value.isNotEmpty()) {
+        filters.add(StringFilter(articleParam, value))
+        return " filtering by : ${filterBy} : ${value}"
+    }
+    return ""
+}
+
+class IntFilter<T>(private val articleParam: (T) -> Int?,
+                   private val intValue: Int) : Filter<T> {
+    override fun applyFilter(item: T): Boolean {
         val filterValue = articleParam(item)
-        return filterValue != null && filterValue == intValue
+        return filterValue != null && filterValue >= intValue
     }
 }
 
+fun <T>applyIntFilter(filters: MutableList<Filter<T>>, articleParam: (T) -> Int?, value: Int, filterBy: String = ""): String  {
+    filters.add(IntFilter(articleParam, value))
+    return  " filtering by : ${filterBy} : ${value}"
+}
